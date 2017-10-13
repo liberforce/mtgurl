@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import requests
+import unittest
 
 def url_from_card_name(name):
     base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[%s]'
@@ -9,17 +10,26 @@ def url_from_card_name(name):
 def fetch_card(name):
     url = url_from_card_name(name)
     r = requests.get(url, allow_redirects=False)
-    assert r.status_code == 302, name
+    r.connection.close()
 
-    with open('toto.html', 'w') as file_:
+    with open('{}.html'.format(name), 'w') as file_:
         file_.write(r.text)
 
-if __name__ == '__main__':
-    cards = [
+    return bool(r.status_code == 302)
+
+
+class TestFetchCard(unittest.TestCase):
+    CARDS = [
         'Synod Sanctum',
         'Lightning Bolt',
         'Foudre',
     ]
 
-    for card in cards:
-        fetch_card(card)
+    def test_fetch_card(self):
+        for card in self.CARDS:
+            with self.subTest(i=card):
+                self.assertTrue(fetch_card(card))
+
+
+if __name__ == '__main__':
+    unittest.main()
