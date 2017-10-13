@@ -3,13 +3,19 @@ import requests
 import unittest
 import os.path
 
-def url_from_card_name(name):
+
+def make_url1(name):
     base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[%s]'
     url = base_url % name
     return url
 
-def fetch_card(name):
-    url = url_from_card_name(name)
+def make_url2(name):
+    base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+["%s"]'
+    url = base_url % name
+    return url
+
+def fetch_card(name, make_url=make_url1):
+    url = make_url(name)
     r = requests.head(url, allow_redirects=False)
     r.connection.close()
 
