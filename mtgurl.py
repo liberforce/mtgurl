@@ -1,13 +1,25 @@
 #! /usr/bin/env python3
 import requests
 
-def fetch_card(url):
-    r = requests.get(url)
-    print(r.status_code)
+def url_from_card_name(name):
+    base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[%s]'
+    url = base_url % name
+    return url
+
+def fetch_card(name):
+    url = url_from_card_name(name)
+    r = requests.get(url, allow_redirects=False)
+    assert r.status_code == 302, name
 
     with open('toto.html', 'w') as file_:
         file_.write(r.text)
 
 if __name__ == '__main__':
-    url = 'http://gatherer.wizards.com/Pages/Search/Default.aspx?name=%2b%5bSynod%20Sanctum%5d'
-    fetch_card(url)
+    cards = [
+        'Synod Sanctum',
+        'Lightning Bolt',
+        'Foudre',
+    ]
+
+    for card in cards:
+        fetch_card(card)
