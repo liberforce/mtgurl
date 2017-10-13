@@ -10,7 +10,7 @@ def url_from_card_name(name):
 
 def fetch_card(name):
     url = url_from_card_name(name)
-    r = requests.get(url, allow_redirects=False)
+    r = requests.head(url, allow_redirects=False)
     r.connection.close()
 
     with open('{}.html'.format(name), 'w') as file_:
