@@ -19,9 +19,6 @@ def fetch_card(name, make_url=make_url1):
     r = requests.head(url, allow_redirects=False)
     r.connection.close()
 
-    with open('{}.html'.format(name), 'w') as file_:
-        file_.write(r.text)
-
     return bool(r.status_code == 302)
 
 
