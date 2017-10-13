@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
-import requests
-from requests import async
+import grequests
 import unittest
 import os.path
 
@@ -17,9 +16,8 @@ def make_url2(name):
 
 def fetch_card(name, make_url=make_url1):
     url = make_url(name)
-    r = requests.head(url, allow_redirects=False, verify=False)
+    r = grequests.head(url, allow_redirects=False, verify=False)
     r.connection.close()
-
     return bool(r.status_code == 302)
 
 def fetch_cards(names, make_url=make_url1):
@@ -27,8 +25,8 @@ def fetch_cards(names, make_url=make_url1):
     for name in names:
         urls.append(make_url(name))
 
-    rs = [requests.async.head(url) for url in urls]
-    responses = requests.async.map(rs, size=20)
+    rs = [grequests.head(url) for url in urls]
+    responses = grequests.map(rs, size=5)
     results = [bool(r.status_code == 302) for r in responses]
     return [tup for tup in zip(names, responses)]
 
