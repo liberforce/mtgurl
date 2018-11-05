@@ -4,15 +4,13 @@ import unittest
 import os.path
 
 
+base_url = 'http://gatherer.wizards.com/Pages/Card/Details.aspx?name='
+
 def make_unquoted_url(name):
-    base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[%s]'
-    url = base_url % name
-    return url
+    return base_url + ('+[%s] =' % name)
 
 def make_quoted_url(name):
-    base_url='http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+["%s"]'
-    url = base_url % name
-    return url
+    return base_url + ('+["%s"] =' % name)
 
 def fetch_card(name, make_url):
     url = make_url(name)
