@@ -7,16 +7,17 @@ import os.path
 base_url = 'http://gatherer.wizards.com/Pages/Card/Details.aspx?name='
 
 def make_unquoted_url(name):
-    return base_url + ('+[%s] =' % name)
+    return base_url + ('+[%s]' % name)
 
 def make_quoted_url(name):
-    return base_url + ('+["%s"] =' % name)
+    return base_url + ('+["%s"]' % name)
 
 def make_vanilla_url(name):
     return base_url + name
 
 def fetch_card(name, make_url):
     url = make_url(name)
+    print('url = {}'.format(url))
     r = requests.head(url, allow_redirects=False)
     r.connection.close()
 
