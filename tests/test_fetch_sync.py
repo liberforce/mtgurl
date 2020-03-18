@@ -14,7 +14,7 @@ def list_card_names(filepath):
 
     return cards
 
-CARDS = list_card_names(os.path.join(os.path.dirname(__file__), 'cards.txt'))
+CARDS = list_card_names(os.path.join(os.path.dirname(__file__), 'data', 'cardset-complex.txt'))
 
 
 @pytest.mark.parametrize("cardname", CARDS)
