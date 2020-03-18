@@ -2,7 +2,7 @@
 
 import requests
 
-base_url = 'http://gatherer.wizards.com/Pages/Card/Details.aspx?name='
+base_url = 'https://gatherer.wizards.com/Pages/Card/Details.aspx?name='
 
 def make_unquoted_url(name):
     return base_url + ('+[%s]' % name)
