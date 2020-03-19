@@ -28,4 +28,4 @@ CARDS = list_card_names(
 def test_fetch_card_vanilla(cardname):
     url = mtgurl.make_vanilla_url(cardname)
     print(url)
-    assert mtgurl.fetch_by_url(url)
+    mtgurl.fetch_by_url(url)

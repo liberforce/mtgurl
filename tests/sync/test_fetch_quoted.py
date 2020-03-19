@@ -28,4 +28,4 @@ CARDS = list_card_names(
 def test_fetch_card_quoted(cardname):
     url = mtgurl.make_quoted_url(cardname)
     print(url)
-    assert mtgurl.fetch_by_url(url)
+    mtgurl.fetch_by_url(url)

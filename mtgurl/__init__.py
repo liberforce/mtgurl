@@ -4,6 +4,9 @@ import requests
 
 _BASE_URL = 'https://gatherer.wizards.com/Pages/Card/Details.aspx?name='
 
+class NotFound(Exception):
+    pass
+
 def make_unquoted_url(name):
     return _BASE_URL + ('+[%s]' % name)
 
@@ -18,6 +21,7 @@ def fetch_by_name(name, url_method):
     return fetch(url)
 
 def fetch_by_url(url):
-    r = requests.head(url, allow_redirects=False)
-    r.connection.close()
-    return bool(r.status_code == 302)
+    response = requests.head(url)
+    response.connection.close()
+    if response.status_code != 302:
+        raise NotFound
