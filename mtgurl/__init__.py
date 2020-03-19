@@ -21,7 +21,14 @@ def fetch_by_name(name, url_method):
     return fetch(url)
 
 def fetch_by_url(url):
-    response = requests.head(url)
-    response.connection.close()
-    if response.status_code != 302:
+    response = requests.head(url, allow_redirects=True)
+    print(f'\n{url} → {response.url}')
+
+    if response.url.find('multiverseid=') != -1:
+        return
+
+    if response.status_code != 200:
+        raise NotFound
+
+    if response.url.find('/Search/') != -1:
         raise NotFound

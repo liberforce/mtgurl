@@ -27,5 +27,4 @@ CARDS = list_card_names(
 @pytest.mark.parametrize("cardname", CARDS)
 def test_fetch_card_vanilla(cardname):
     url = mtgurl.make_vanilla_url(cardname)
-    print(url)
     mtgurl.fetch_by_url(url)
