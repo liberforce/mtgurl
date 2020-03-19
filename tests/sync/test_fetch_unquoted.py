@@ -19,7 +19,7 @@ CARDS = list_card_names(
         os.path.dirname(__file__),
         '..',
         'data',
-        'cardset-complex.txt',
+        'cardset-single.txt',
     )
 )
 
